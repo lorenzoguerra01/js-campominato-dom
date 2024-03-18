@@ -5,6 +5,8 @@
 // Altrimenti la cella cliccata si colora di azzurro e l'utente può continuare a cliccare sulle altre celle.
 // La partita termina quando il giocatore clicca su una bomba o quando raggiunge il numero massimo possibile di 
 // numeri consentiti(ovvero quando ha rivelato tutte le celle che non sono bombe).
+// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha 
+// cliccato su una cella che non era una bomba.
 
 let elBtnPlay = document.getElementById("btn-play")
 
@@ -30,6 +32,8 @@ elBtnPlay.addEventListener("click", function () {
     } else {
         acc = `<div class="text-danger">Selezionare una difficoltà</div>`;
     }
+    msContainer.innerHTML = acc;
+
     for (let i = 0; i < 16; i++) {
         tempRandom = getRndInteger(1, 100)
         let isFound
@@ -45,39 +49,18 @@ elBtnPlay.addEventListener("click", function () {
         }
         console.log(bomb);
     }
-    msContainer.innerHTML = acc;
 
-    // let boxes = document.querySelectorAll(".ms_box")
-    // boxes.forEach(function (box) {
-    //     let isFound
-    //     for (let i = 0; i < bomb.length; i++) {
-    //         if (box.innerHTML === bomb[i]) {
-    //             isFound === true
-    //         }
-    //     }
-    //     if (!isFound) {
-    //         box.addEventListener("click", function () {
-    //             this.classList.toggle("bg-primary")
-    //             console.log(this.innerHTML);
-    //         })    
-    //     } else {
-    //         box.addEventListener("click", function () {
-    //             this.classList.toggle("bg-danger")
-    //             console.log(this.innerHTML);
-    //         })
-    //     }
-
-    // })
     let boxes = document.querySelectorAll(".ms_box")
     boxes.forEach(function (box) {
         box.addEventListener("click", function () {
+            let check = isNumberRange(1, 5)
             let isFound
             for (let i = 0; i < bomb.length; i++) {
                 if (parseInt(this.innerHTML) === bomb[i]) {
                     isFound = true
                     console.log(isFound)
                 }
-                console.log(parseInt(this.innerHTML), bomb[i])
+                // console.log(parseInt(this.innerHTML), bomb[i])
             }
             if (!isFound) {
                 this.classList.toggle("bg-primary")
@@ -85,7 +68,9 @@ elBtnPlay.addEventListener("click", function () {
             } else {
                 this.classList.toggle("bg-danger")
                 console.log(this.innerHTML);
+                msContainer.innerHTML +=  `<div class="text-danger">Peccato, hai perso!</div>`
             }
+            
         })
     })
 })

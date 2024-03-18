@@ -34,13 +34,20 @@ function isPalindrome(str) { /*AI method */
 function isNumberInRange(number, num1, num2) {
     return number >= num1 && number <= num2;
 }
+function isNumberRange(min, max) {
+    let array =[];
+    for (min; min < max; min++) {
+        array.push(min);
+    }
+    return array;
+}
 function isEven(number) {
     if (number % 2 === 0) {
         number = "pari"
     } else {
         number = "dispari"
     }
-    return number
+    return number;
 }
 // global variables 
 
