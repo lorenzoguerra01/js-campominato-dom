@@ -44,40 +44,31 @@ elBtnPlay.addEventListener("click", function () {
     }
     msContainer.innerHTML = acc;
 
-    for (let i = 0; i < 16; i++) {
-        tempRandom = getRndInteger(1, 100)
-        let isFound
-        for (let j = 0; j < i; j++) {
-            if (tempRandom === bomb[j]) {
-                isFound = true
-            }
-        }
-        if (!isFound) {
-            bomb.push(tempRandom)
-        } else {
-            i--
-        }
-        console.log(bomb);
-    }
-
+    // for (let i = 0; i < 16; i++) { //without function includes
+    //     tempRandom = getRndInteger(1, 100)
+    //     let isFound
+    //     for (let j = 0; j < i; j++) {
+    //         if (tempRandom === bomb[j]) {
+    //             isFound = true
+    //         }
+    //     }
+    //     if (!isFound) {
+    //         bomb.push(tempRandom)
+    //     } else {
+    //         i--
+    //     }
+    //     console.log(bomb);
+    // }
+    bomb = isUniqueArray (16, 1, 100); //with function includes
+    console.log(bomb);
     let boxes = document.querySelectorAll(".ms_box")
     boxes.forEach(function (box) {
         box.addEventListener("click", function () {
-            let isFound
             console.log(check);
-            for (let i = 0; i < check.length; i++) {
-                if (parseInt(this.innerHTML) === bomb[i]) {
-                    isFound = true
-                    console.log(isFound)
-                }
-                if (parseInt(this.innerHTML) === check[i]) {
-                    let tempIndex = check.indexOf(check[i])
-                    check.splice(tempIndex, 1)
-                    console.log(check);
-                }
-                // console.log(parseInt(this.innerHTML), bomb[i])
-            }
-            if (!isFound) {
+            let tempIndex = check.indexOf(parseInt(this.innerHTML))
+            check.splice(tempIndex, 1)
+            console.log(check);
+            if (!bomb.includes(parseInt(this.innerHTML))) {
                 this.classList.add("bg-primary")
                 console.log(this.innerHTML);
             } else {

@@ -49,6 +49,18 @@ function isEven(number) {
     }
     return number;
 }
+function isUniqueArray(elements, min, max) {
+    let array =[];
+    for (let i = 0; i < elements; i++) {
+        let tempRandom = getRndInteger(min, max);
+        if (!array.includes(tempRandom)) {
+            array.push(tempRandom);
+        } else {
+            i--;
+        }
+    }
+    return array;
+}
 // global variables 
 
 let reply = document.querySelector(".reply");
