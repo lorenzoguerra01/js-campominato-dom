@@ -17,18 +17,28 @@ elBtnPlay.addEventListener("click", function () {
     msContainer.classList.add("border", "border-black")
     console.log(sel);
     let bomb = [];
+    let check = [];
+    let grid;
+    msContainer.classList.remove("w-100")
+
     if (sel === "easy") {
         for (let i = 0; i < 100; i++) {
             acc += ` <div class="ms_box ms_box-easy">${i + 1}</div>`;
         }
+        check = isNumberRange(1, 100);
+        grid = 100;
     } else if (sel === "normal") {
         for (let i = 0; i < 81; i++) {
             acc += ` <div class="ms_box ms_box-normal">${i + 1}</div>`;
         }
+        check = isNumberRange(1, 81);
+        grid = 81;
     } else if (sel === "hard") {
         for (let i = 0; i < 49; i++) {
             acc += ` <div class="ms_box ms_box-hard">${i + 1}</div>`;
         }
+        check = isNumberRange(1, 49);
+        grid = 49;
     } else {
         acc = `<div class="text-danger">Selezionare una difficoltà</div>`;
     }
@@ -53,24 +63,37 @@ elBtnPlay.addEventListener("click", function () {
     let boxes = document.querySelectorAll(".ms_box")
     boxes.forEach(function (box) {
         box.addEventListener("click", function () {
-            let check = isNumberRange(1, 5)
             let isFound
-            for (let i = 0; i < bomb.length; i++) {
+            console.log(check);
+            for (let i = 0; i < check.length; i++) {
                 if (parseInt(this.innerHTML) === bomb[i]) {
                     isFound = true
                     console.log(isFound)
                 }
+                if (parseInt(this.innerHTML) === check[i]) {
+                    let tempIndex = check.indexOf(check[i])
+                    check.splice(tempIndex, 1)
+                    console.log(check);
+                }
                 // console.log(parseInt(this.innerHTML), bomb[i])
             }
             if (!isFound) {
-                this.classList.toggle("bg-primary")
+                this.classList.add("bg-primary")
                 console.log(this.innerHTML);
             } else {
-                this.classList.toggle("bg-danger")
+                this.classList.add("bg-danger")
                 console.log(this.innerHTML);
-                msContainer.innerHTML +=  `<div class="text-danger">Peccato, hai perso!</div>`
+                let elBtnContinue = document.createElement("button")
+                elBtnContinue.className = "btn btn-warning"
+                elBtnContinue.innerText = 'Vai al risultato';
+                msContainer.innerHTML += `<div class="text-danger w-100 text-center ">Peccato, hai perso!</div>`
+                msContainer.append(elBtnContinue)
+                elBtnContinue.addEventListener("click", function () {
+                    msContainer.classList.add("w-100")
+                    msContainer.innerHTML = `<h2 class="text-success">Sei riuscito a selezionare ${(grid - check.length - 1) + " celle su " + (grid - 16)}!</h2>`
+                })
             }
-            
+
         })
     })
 })

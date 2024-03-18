@@ -36,7 +36,7 @@ function isNumberInRange(number, num1, num2) {
 }
 function isNumberRange(min, max) {
     let array =[];
-    for (min; min < max; min++) {
+    for (min; min <= max; min++) {
         array.push(min);
     }
     return array;
@@ -51,4 +51,4 @@ function isEven(number) {
 }
 // global variables 
 
-let reply = document.querySelector(".reply")
+let reply = document.querySelector(".reply");
