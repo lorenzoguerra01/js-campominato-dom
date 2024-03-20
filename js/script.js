@@ -27,18 +27,21 @@ elBtnPlay.addEventListener("click", function () {
         }
         check = isNumberRange(1, 100);
         grid = 100;
+        bomb = isUniqueArray(16, 1, 100); //with function includes
     } else if (sel === "normal") {
         for (let i = 0; i < 81; i++) {
             acc += ` <div class="ms_box ms_box-normal">${i + 1}</div>`;
         }
         check = isNumberRange(1, 81);
         grid = 81;
+        bomb = isUniqueArray(16, 1, 81); //with function includes
     } else if (sel === "hard") {
         for (let i = 0; i < 49; i++) {
             acc += ` <div class="ms_box ms_box-hard">${i + 1}</div>`;
         }
         check = isNumberRange(1, 49);
         grid = 49;
+        bomb = isUniqueArray(16, 1, 49); //with function includes
     } else {
         acc = `<div class="text-danger">Selezionare una difficoltà</div>`;
     }
@@ -59,7 +62,6 @@ elBtnPlay.addEventListener("click", function () {
     //     }
     //     console.log(bomb);
     // }
-    bomb = isUniqueArray (16, 1, 100); //with function includes
     console.log(bomb);
     let boxes = document.querySelectorAll(".ms_box")
     boxes.forEach(function (box) {
@@ -84,6 +86,12 @@ elBtnPlay.addEventListener("click", function () {
                     msContainer.innerHTML = `<h2 class="text-success">Sei riuscito a selezionare ${(grid - check.length - 1) + " celle su " + (grid - 16)}!</h2>`
                 })
             }
+            if ((grid - check.length) === (grid - 16)) {
+                msContainer.innerHTML = ` <img src=" https://picsum.photos/400/400" alt="img1"></img>`
+            }
+            console.log((grid - check.length));
+            console.log((grid - 16));
+            console.log(bomb);
 
         })
     })
